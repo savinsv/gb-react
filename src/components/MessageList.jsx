@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./MessageList.css";
 
 export const MessageList = () => {
   const [messageList, addMessage] = useState([]);
@@ -20,9 +21,9 @@ export const MessageList = () => {
     <div>
       <div className="ChatWindow">
         {messageList.map(({ message_id, user, messageText }) => (
-          <div key={message_id}>
-            <div id="user">{user}</div>
-            <div id="message">{messageText}</div>
+          <div key={message_id} className="messageBox">
+            <div className="user">{user}</div>
+            <div className="message">{messageText}</div>
           </div>
         ))}
       </div>
