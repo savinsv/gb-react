@@ -1,7 +1,7 @@
 .messageBox {
   border: 2px solid white;
   padding: 10px 15px;
-  border-radius: 20px 20px 20px 20px;
+  border-radius: 15px 15px 20px 20px;
   margin-bottom: 20px;
 }
 .user {
