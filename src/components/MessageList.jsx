@@ -1,21 +1,43 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MessageList.css";
 
 export const MessageList = () => {
-  const [messageList, addMessage] = useState([]);
-  const faker = require("faker");
+  const [messageList, changeMessageList] = useState([]);
 
-  const handleAddMessage = (event) => {
-    const messageText = event.target.previousSibling;
-    const userName = event.target.previousSibling.previousSibling;
-    const messages = Object.assign([], messageList);
+  const addMessage = (userName, messageText, messList) => {
+    const faker = require("faker");
+    const messages = Object.assign([], messList);
     messages.push({
       message_id: faker.datatype.uuid(),
-      user: userName.value,
-      messageText: messageText.value,
+      user: userName,
+      messageText: messageText,
     });
-    addMessage(messages);
+    return messages;
   };
+
+  const handleAddMessage = (event) => {
+    const messageText = event.target.previousSibling.value;
+    const userName = event.target.previousSibling.previousSibling.value;
+    changeMessageList(addMessage(userName, messageText, messageList));
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (messageList.length > 0) {
+        if (messageList[messageList.length - 1].user !== "Bot") {
+          changeMessageList(
+            addMessage(
+              "Bot",
+              `Приветствую тебя, ${
+                messageList[messageList.length - 1].user
+              }. Не хулигань.`,
+              messageList
+            )
+          );
+        }
+      }
+    }, 1500);
+  }, [messageList]);
 
   return (
     <div>
