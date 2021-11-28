@@ -1,30 +1,34 @@
 import { React, useRef, useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import { TextField, Stack, Button } from "@mui/material";
+import { TextField, Stack, Button, Box } from "@mui/material";
 import "./ChatBox.css";
 import { MessageList } from "../MessageList/MessageList";
 
 const faker = require("faker");
 
-let userName = "Nobody";
-
 const BOT = {
   user: "Bot",
-  messaggeText: `Приветствую тебя, ${userName}. Вы, это.. того, самого, не хулиганьте...`,
+  messageText: `Приветствую тебя, Nobody. Вы, это.. того, самого, не хулиганьте...`,
 };
 const ME = {
   user: "Andy",
   messageText: "",
 };
 const message = (user) => {
-  return { id: faker.datatype.uuid(), ...user };
+  return {
+    id: faker.datatype.uuid(),
+    user: user.user,
+    messageText: user.messageText,
+  };
+};
+const getLastMessageUser = (messageArray) => {
+  return messageArray.length > 0
+    ? messageArray[messageArray.length - 1].user
+    : "Bot";
 };
 
 export const ChatBox = () => {
   const inputMessageRef = useRef();
-  // const outputRef = useRef();
   const [messageList, changeMessageList] = useState([]);
-  const [outputValue, setOutputValue] = useState("Пока чат пуст...");
   const [inputMessage, setInputMessage] = useState("");
 
   const handleInpuMessageChange = (event) => {
@@ -33,10 +37,27 @@ export const ChatBox = () => {
   useEffect(() => {
     inputMessageRef.current?.focus();
   });
+  useEffect(() => {
+    let timer_id = null;
+    clearTimeout(timer_id);
+
+    if (getLastMessageUser(messageList) !== "Bot") {
+      timer_id = setTimeout(() => {
+        BOT.messageText = BOT.messageText.replace(
+          "Nobody",
+          getLastMessageUser(messageList)
+        );
+        const { id, user, messageText } = message(BOT);
+        changeMessageList([...messageList, { id, user, messageText }]);
+      }, 1500);
+    }
+  }, [messageList]);
+
   const handleClickSendBtn = (event) => {
+    event.preventDefault();
+    ME.messageText = inputMessageRef.current.value;
     const { id, user, messageText } = message(ME);
     changeMessageList([...messageList, { id, user, messageText }]);
-    // setOutputValue(inputMessageRef.current.value);
     setInputMessage("");
   };
 

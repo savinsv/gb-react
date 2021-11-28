@@ -1,8 +1,7 @@
 #sendMessageBtn {
   box-sizing: border-box;
   margin-top: 8px;
-  /* margin-bottom: 8px;
-  margin-right: 8px; */
+  margin-bottom: 8px;
 }
 .ChatBox {
   padding-right: 8px;
