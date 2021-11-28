@@ -1,19 +1,43 @@
-import { React, useState, useEffect } from "react";
+import { React, useRef, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { TextField, Stack, Button } from "@mui/material";
 import "./ChatBox.css";
+import { MessageList } from "../MessageList/MessageList";
+
+const faker = require("faker");
+
+let userName = "Nobody";
+
+const BOT = {
+  user: "Bot",
+  messaggeText: `Приветствую тебя, ${userName}. Вы, это.. того, самого, не хулиганьте...`,
+};
+const ME = {
+  user: "Andy",
+  messageText: "",
+};
+const message = (user) => {
+  return { id: faker.datatype.uuid(), ...user };
+};
 
 export const ChatBox = () => {
-  const [value, setValue] = useState("Пока чат пуст...");
+  const inputMessageRef = useRef();
+  // const outputRef = useRef();
+  const [messageList, changeMessageList] = useState([]);
+  const [outputValue, setOutputValue] = useState("Пока чат пуст...");
   const [inputMessage, setInputMessage] = useState("");
+
   const handleInpuMessageChange = (event) => {
     setInputMessage(event.currentTarget.value);
-    event.currentTarget.value.length < 10
-      ? console.log(`Мало букаф: ${inputMessage}`)
-      : console.log("О, пойдет...");
   };
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  useEffect(() => {
+    inputMessageRef.current?.focus();
+  });
+  const handleClickSendBtn = (event) => {
+    const { id, user, messageText } = message(ME);
+    changeMessageList([...messageList, { id, user, messageText }]);
+    // setOutputValue(inputMessageRef.current.value);
+    setInputMessage("");
   };
 
   return (
@@ -26,23 +50,28 @@ export const ChatBox = () => {
           justifyContent: "stretch",
         },
       }}
+      id="form"
       noValidate
       autoComplete="off"
     >
       <div>
-        <TextField
+        <MessageList messageList={messageList} />
+        {/* <TextField
           id="outlined-multiline-static"
           label="Multiline"
           multiline
-          rows={50}
+          rows={20}
+          fullWidth
           defaultValue=""
-        />
+          value={outputValue}
+          outputRef={outputRef}
+        /> */}
         <Stack
           direction="row"
           spacing={1}
           sx={{
             display: "grid",
-            gridTemplateColumns: "2fr 1fr",
+            gridTemplateColumns: "3fr 1fr",
           }}
         >
           <TextField
@@ -51,13 +80,15 @@ export const ChatBox = () => {
             variant="outlined"
             autoFocus
             value={inputMessage}
+            inputRef={inputMessageRef}
             onChange={handleInpuMessageChange}
           />
           <Button
             id="sendMessageBtn"
             variant="contained"
-            disabled
+            disabled={inputMessage.length < 10}
             sx={{ bgcolor: "grey" }}
+            onClick={handleClickSendBtn}
           >
             Отправить...
           </Button>

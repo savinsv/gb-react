@@ -18,7 +18,7 @@ export const ChatList = () => {
       }}
       subheader={<li />}
     >
-      {[0, 1, 2, 3, 4].map((sectionId) => (
+      {[0, 1].map((sectionId) => (
         <li key={`section-${sectionId}`}>
           <ul>
             <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
