@@ -107,7 +107,7 @@ export const ChatBox = () => {
           <Button
             id="sendMessageBtn"
             variant="contained"
-            disabled={inputMessage.length < 10}
+            disabled={inputMessage.length < 2}
             sx={{ bgcolor: "grey" }}
             onClick={handleClickSendBtn}
           >
