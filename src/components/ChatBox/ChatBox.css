@@ -4,5 +4,6 @@
   margin-bottom: 8px;
 }
 .ChatBox {
-  padding-right: 8px;
+  padding: 8px;
+  /* padding-right: 8px; */
 }

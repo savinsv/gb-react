@@ -1,13 +1,13 @@
 .App {
-  height: auto;
+  height: 100vh;
   display: grid;
   grid-template-columns: 0.6fr 1.4fr 1fr;
   grid-template-rows: 0.2fr 2.6fr 0.2fr;
   gap: 5px 5px;
   grid-auto-flow: row dense;
-  /* justify-content: center; */
-  /* align-content: center; */
-  /* justify-items: stretch; */
+  justify-content: center;
+  align-content: center;
+  justify-items: stretch;
   align-items: stretch;
   grid-template-areas:
     "Header Header Header"
@@ -17,16 +17,22 @@
 
 .Header {
   grid-area: Header;
+  margin-bottom: 10px;
+  /* border: solid 2px gray; */
 }
 
 .ChatList {
   grid-area: ChatList;
+  /* border: solid 2px gray; */
 }
 
 .ChatBox {
   grid-area: ChatBox;
+  /* border: solid 2px gray; */
+  padding-top: 20px;
 }
 
 .Status {
   grid-area: Status;
+  /* border: solid 2px gray; */
 }

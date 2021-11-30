@@ -1,4 +1,5 @@
 import * as React from "react";
+import { MenuBar } from "./MenuBar";
 import "./App.css";
 import { ChatBox } from "./ChatBox/ChatBox";
 import { ChatList } from "./ChatList/ChatList";
@@ -6,7 +7,9 @@ import { ChatList } from "./ChatList/ChatList";
 const App = () => {
   return (
     <div className="App">
-      <header className="Header">MenuBar</header>
+      <header className="Header">
+        <MenuBar />
+      </header>
       <div className="ChatList">
         <ChatList />
       </div>
