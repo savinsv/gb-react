@@ -1,27 +1,21 @@
-import { useState } from "react";
-import logo from "../images/logo.svg";
+import * as React from "react";
 import "./App.css";
-import Message from "./Message";
+import { ChatBox } from "./ChatBox/ChatBox";
+import { ChatList } from "./ChatList/ChatList";
 
-function App() {
-  const [value, setValue] = useState("");
-  function handleChange(event) {
-    setValue(event.target.value);
-  }
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <input
-          value={value}
-          onChange={handleChange}
-          placeholder="Введите ваше имя"
-          className="App-input"
-        />
-        <Message messName={value} className="App-message" />
-      </header>
+      <header className="Header">MenuBar</header>
+      <div className="ChatList">
+        <ChatList />
+      </div>
+      <div className="ChatBox">
+        <ChatBox />
+      </div>
+      <footer className="Status">Status</footer>
     </div>
   );
-}
+};
 
 export default App;
