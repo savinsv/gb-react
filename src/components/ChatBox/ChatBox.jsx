@@ -77,16 +77,6 @@ export const ChatBox = () => {
     >
       <div>
         <MessageList messageList={messageList} />
-        {/* <TextField
-          id="outlined-multiline-static"
-          label="Multiline"
-          multiline
-          rows={20}
-          fullWidth
-          defaultValue=""
-          value={outputValue}
-          outputRef={outputRef}
-        /> */}
         <Stack
           direction="row"
           spacing={1}
